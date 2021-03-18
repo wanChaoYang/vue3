@@ -1,0 +1,7 @@
+#seachPage header {
+  height: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 0.15rem 0.05rem 0;
+}

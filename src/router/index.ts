@@ -1,20 +1,62 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Demo from '../views/demo.vue'
 const routes: Array<RouteRecordRaw> = [
+
   {
     path: '/',
     name: 'Home',
-    component: Home
+    meta: {
+      showTab: true
+    },
+    component: () => import("../views/Home/index.vue")
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/Home',
+    meta: {
+      showTab: true
+    },
+    redirect: { name: "Home" }
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    meta: {
+      showTab: false
+    },
+    component: () => import('../views/cart/cart.vue')
+  },
+  {
+    path: '/appsPage',
+    name: 'appsPage',
+    meta: {
+      showTab: true
+    },
+    component: () => import('../views/appsPage/appsPage.vue')
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    meta: {
+      showTab: true
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login/index.vue')
+  },
+  {
+    path: '/seachPage',
+    name: 'seachPage',
+    meta: {
+      showTab: true
+    },
+    component: () => import('../views/seachPage/seachPage.vue')
+  },
+
+
+  {
+    path: '/Demo',
+    name: 'Demo',
+    component: Demo
+  },
+
 ]
 
 const router = createRouter({

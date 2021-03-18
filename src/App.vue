@@ -1,30 +1,48 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-view />
+    <!-- <router-link to="/Demo">Demo</router-link>| -->
+    <van-tabbar v-model="state.active" @change="onChange" route>
+      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
+      <van-tabbar-item icon="apps-o" to="/appsPage">分类</van-tabbar-item>
+      <van-tabbar-item icon="cart-o" to="/cart" badge="3">购物车</van-tabbar-item>
+      <van-tabbar-item icon="user-o" to="/Login">我的</van-tabbar-item>
+    </van-tabbar>
   </div>
-  <router-view/>
 </template>
-
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script lang='ts'>
+import { defineComponent, reactive, onMounted } from "vue";
+import { useRouter } from "vue-router";
+export default defineComponent({
+  setup() {
+    const router = useRouter();
+    const state = reactive({
+      active: 0
+    });
+    onMounted(() => {
+      // router.options.routes.forEach(element => {
+      //   if (element.meta) {
+      //     state.showTab = element.meta.showTab;
+      //   }
+      // });
+    });
+    function onChange(result): void {
+      console.log(router);
+      console.log(router.currentRoute.value.meta);
+      /**
+       * 因为无法获取roter当前mate状态，所以暂时无法所屏蔽tab
+       */
+      // router.options.routes.forEach(element => {});
     }
+    return {
+      state,
+      onChange
+    };
   }
+});
+</script>
+<style lang="less" scoped>
+.van-tabbar-item {
+  font-size: 0.14rem !important;
 }
 </style>
