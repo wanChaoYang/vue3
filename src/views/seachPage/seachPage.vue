@@ -1,7 +1,7 @@
 <template>
   <div id="seachPage">
     <header class="border-b-eee">
-      <seach-input @change="oninput" :value="state.seachValue"></seach-input>
+      <seach-input @onSeach="onSeach"></seach-input>
     </header>
     <section></section>
   </div>
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { seachinput } from "../../components/index";
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, provide, toRefs, onMounted } from "vue";
 
 export default defineComponent({
   name: "seachPage",
@@ -17,13 +17,26 @@ export default defineComponent({
     "seach-input": seachinput
   },
   setup() {
-    const state = reactive({
+    const seachInfo = reactive({
       seachValue: ""
     });
-    function oninput() {}
+    provide("seachInfo", seachInfo); //父组件将值传给子组件（实现数据双向绑定）
+
+    function oninput(result) {}
+    function onSeach() {
+      console.log(seachInfo.seachValue);
+    }
+
+    onMounted(() => {
+      setTimeout(() => {
+        seachInfo.seachValue = "异步改变输入框的值";
+      }, 1000);
+    });
+
     return {
-      state,
-      oninput
+      ...toRefs(seachInfo),
+      oninput,
+      onSeach
     };
   }
 });

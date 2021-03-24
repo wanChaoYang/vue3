@@ -6,30 +6,40 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     meta: {
-      showTab: true
+      showTab: true,
+      name: "首页",
+      isLogin: false,
     },
     component: () => import("../views/Home/index.vue")
   },
   {
     path: '/Home',
     meta: {
-      showTab: true
+      showTab: true,
+      name: "首页",
+      isLogin: false,
     },
     redirect: { name: "Home" }
   },
+
   {
     path: '/cart',
     name: 'cart',
     meta: {
-      showTab: false
+      showTab: false,
+      name: "购物车",
+      isLogin: true,
     },
     component: () => import('../views/cart/cart.vue')
   },
+
   {
     path: '/appsPage',
     name: 'appsPage',
     meta: {
-      showTab: true
+      showTab: true,
+      isLogin: false,
+      name: "分类"
     },
     component: () => import('../views/appsPage/appsPage.vue')
   },
@@ -37,7 +47,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Login',
     name: 'Login',
     meta: {
-      showTab: true
+      showTab: true,
+      isLogin: false,
+      name: "登录"
     },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/index.vue')
   },
@@ -45,7 +57,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/seachPage',
     name: 'seachPage',
     meta: {
-      showTab: true
+      showTab: true,
+      isLogin: false,
     },
     component: () => import('../views/seachPage/seachPage.vue')
   },

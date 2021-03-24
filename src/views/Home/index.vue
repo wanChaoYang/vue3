@@ -62,7 +62,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, onMounted, computed } from "vue";
+import { defineComponent, reactive, onMounted, computed, provide } from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import { seachinput, productList } from "../../components/index";
@@ -84,9 +84,8 @@ export default defineComponent({
         "https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png"
       ]
     });
-    function oninput(result) {
-      state.seachValue = result;
-    }
+
+    provide("seachInfo", state);
     //跳转搜素页
     function clickInput(): void {
       rotuer.push("/seachPage");

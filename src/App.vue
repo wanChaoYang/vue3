@@ -27,8 +27,6 @@ export default defineComponent({
       // });
     });
     function onChange(result): void {
-      console.log(router);
-      console.log(router.currentRoute.value.meta);
       /**
        * 因为无法获取roter当前mate状态，所以暂时无法所屏蔽tab
        */

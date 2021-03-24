@@ -6,7 +6,7 @@
       </div>
       <input
         type="text"
-        v-model="values"
+        v-model="serchInfo.seachValue"
         @input="oninput"
         :placeholder="placeholder"
         :disabled="disabled"
@@ -16,19 +16,11 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, onMounted, watch, ref } from "vue";
+import { defineComponent, reactive, onMounted, watch, ref, inject } from "vue";
 import { useRouter } from "vue-router";
 export default defineComponent({
   name: "SeachInput",
-  model: {
-    prop: "value",
-    event: "change"
-  },
   props: {
-    value: {
-      type: String,
-      default: ""
-    },
     backArrow: {
       type: Boolean,
       default: true
@@ -47,54 +39,38 @@ export default defineComponent({
     }
   },
   setup(props, ctx) {
-    const router = useRouter();
-    let values = ref("");
+    const router = useRouter(); //实例化路由
+    let serchInfo = inject("seachInfo"); //接受父组件传入的值（实现父子组件数据双向绑定）
+    //将子组件的值传给父组件
     function oninput($event): void {
-      ctx.emit("change", $event.target.value);
+      ctx.emit("oninput", $event.target.value);
     }
+
+    //点击搜索按钮
     function onSeach() {
       ctx.emit("onSeach", {});
     }
+
     //左上角返回
     function backPage(e) {
       e.stopPropagation();
       router.go(-1);
       ctx.emit("backPage", {});
     }
-    //搜索按钮
+
+    //返回<图片按钮
     function getImg(img): string {
       return require(`../../assets/icon/${img}.png`);
     }
+
+    //点击输入框
     function clickInput(e) {
       e.stopPropagation();
       ctx.emit("clickInput", {});
     }
-    onMounted(() => {
-      //   console.log(typeof props.value);
-      /**
-       * 设置默认值
-       * 此处还需要探索TypeScript,不知道哪里的类型没有定义正确导致这里需要定义一次类型为any才不报错
-       */
-      let propVal: any = props.value;
-      values.value = propVal;
-    });
-
-    watch([values], (newVal, oldVal) => {
-      console.log(newVal);
-    });
-
-    /*  watch(
-      () => {
-        return state.values;
-      },
-      (newVal, oldVal) => {
-        let propVal: any = newVal;
-        state.values = propVal;
-      }
-    ); */
 
     return {
-      values,
+      serchInfo,
       oninput,
       getImg,
       onSeach,
