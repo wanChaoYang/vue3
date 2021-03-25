@@ -1,7 +1,7 @@
 <template>
   <div id="seachPage">
     <header class="border-b-eee">
-      <seach-input @onSeach="onSeach"></seach-input>
+      <seach-input @onSeach="onSeach" rightText="搜索"></seach-input>
     </header>
     <section></section>
   </div>
@@ -10,7 +10,7 @@
 <script lang="ts">
 import { seachinput } from "../../components/index";
 import { defineComponent, reactive, provide, toRefs, onMounted } from "vue";
-
+import { useStore } from "vuex";
 export default defineComponent({
   name: "seachPage",
   components: {
@@ -20,11 +20,13 @@ export default defineComponent({
     const seachInfo = reactive({
       seachValue: ""
     });
+    const store = useStore();
     provide("seachInfo", seachInfo); //父组件将值传给子组件（实现数据双向绑定）
 
     function oninput(result) {}
     function onSeach() {
-      console.log(seachInfo.seachValue);
+      // console.log(seachInfo.seachValue);
+      // console.log(store.state);
     }
 
     onMounted(() => {

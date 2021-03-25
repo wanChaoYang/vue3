@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/cart',
     name: 'cart',
     meta: {
-      showTab: false,
+      showTab: true,
       name: "购物车",
       isLogin: true,
     },
@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Login',
     name: 'Login',
     meta: {
-      showTab: true,
+      showTab: false,
       isLogin: false,
       name: "登录"
     },
@@ -61,6 +61,15 @@ const routes: Array<RouteRecordRaw> = [
       isLogin: false,
     },
     component: () => import('../views/seachPage/seachPage.vue')
+  },
+  {
+    path: '/me',
+    name: 'me',
+    meta: {
+      showTab: true,
+      isLogin: true,
+    },
+    component: () => import('../views/me/index.vue')
   },
 
 

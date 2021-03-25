@@ -2,39 +2,39 @@
   <div id="nav">
     <router-view />
     <!-- <router-link to="/Demo">Demo</router-link>| -->
-    <van-tabbar v-model="state.active" @change="onChange" route>
+    <van-tabbar v-model="state.active" @change="onChange" route v-if="routeInfo.showTab">
       <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
       <van-tabbar-item icon="apps-o" to="/appsPage">分类</van-tabbar-item>
       <van-tabbar-item icon="cart-o" to="/cart" badge="3">购物车</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/Login">我的</van-tabbar-item>
+      <van-tabbar-item icon="user-o" to="/me">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, reactive, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent, reactive, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
-  setup() {
+  setup(proxy, ctx) {
     const router = useRouter();
+    const useoute = useRoute();
     const state = reactive({
       active: 0
     });
-    onMounted(() => {
-      // router.options.routes.forEach(element => {
-      //   if (element.meta) {
-      //     state.showTab = element.meta.showTab;
-      //   }
-      // });
+
+    /**
+     * 需要通过计算属性才能获取到当前路由信息
+     * 注意：通过点击事件和生命周期函数都只能获取前一个页面的路由信息
+     */
+    let routeInfo: any = computed(() => {
+      return useoute.meta;
     });
-    function onChange(result): void {
-      /**
-       * 因为无法获取roter当前mate状态，所以暂时无法所屏蔽tab
-       */
-      // router.options.routes.forEach(element => {});
-    }
+    onMounted(() => {});
+    function onChange(result): void {}
+
     return {
       state,
-      onChange
+      onChange,
+      routeInfo
     };
   }
 });

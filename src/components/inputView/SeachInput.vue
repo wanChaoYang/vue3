@@ -12,7 +12,10 @@
         :disabled="disabled"
       />
     </div>
-    <div class="input-btn" @click="onSeach">{{rightText}}</div>
+    <div class="input-btn" @click="onSeach">
+      <span v-if="rightText">{{rightText}}</span>
+      <van-icon v-else size="25" name="chat-o" badge="2" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -35,7 +38,7 @@ export default defineComponent({
     },
     rightText: {
       type: String,
-      default: "搜索"
+      default: ""
     }
   },
   setup(props, ctx) {

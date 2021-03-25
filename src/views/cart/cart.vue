@@ -1,12 +1,15 @@
 <template>
-  <div>vue代码自定义片段</div>
+  <head-nav title="购物车"></head-nav>
 </template>
 <script>
-export default {
-  data() {
-    return {};
+import { defineComponent } from "vue";
+import { headNav } from "../../components/index";
+export default defineComponent({
+  name: "cart",
+  components: {
+    "head-nav": headNav
   }
-};
+});
 </script>
 <style lang='less' scoped>
 </style>

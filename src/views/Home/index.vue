@@ -5,7 +5,7 @@
         <seach-input
           :backArrow="false"
           placeholder="搜索"
-          rightText="登录"
+          :rightText="!token?'登录':''"
           :disabled="true"
           @change="oninput"
           @clickInput="clickInput"
@@ -65,6 +65,7 @@
 import { defineComponent, reactive, onMounted, computed, provide } from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
+import { useStore } from "vuex";
 import { seachinput, productList } from "../../components/index";
 export default defineComponent({
   name: "Home",
@@ -74,6 +75,7 @@ export default defineComponent({
   },
   setup() {
     const rotuer = useRouter();
+    const store = useStore();
     const { menueClick, menueData } = menueList();
     const { productData, productClick, handler } = productListFun();
     const state = reactive({
@@ -86,12 +88,19 @@ export default defineComponent({
     });
 
     provide("seachInfo", state);
+    let token = computed(() => {
+      return store.state.userToken;
+    });
     //跳转搜素页
     function clickInput(): void {
       rotuer.push("/seachPage");
     }
 
     function onSeach(): void {
+      if (token) {
+        //进取消息页面
+        Toast.fail("敬请期待");
+      }
       rotuer.push("/Login");
     }
 
@@ -105,7 +114,8 @@ export default defineComponent({
       menueData,
       productData,
       productClick,
-      handler
+      handler,
+      token
     };
   }
 });

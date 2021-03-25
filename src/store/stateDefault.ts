@@ -1,8 +1,5 @@
 export default {
     get userToken() {
-        return localStorage.getItem("token")
+        return localStorage.getItem("userToken")
     },
-    set userToken(value) {
-        // return localStorage.setItem("token", value)
-    }
 }

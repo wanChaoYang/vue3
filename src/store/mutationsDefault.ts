@@ -1,8 +1,10 @@
 export default {
-    LOGIN_IN(state, token) {
-        state.token = token
+    LOGIN_IN(state, token): void {
+        // state.userToken = token
+        localStorage.setItem("userToken", token)
     },
-    LOGIN_OUT(state, token) {
-        state.token = ''
+    LOGIN_OUT(state, token): void {
+        // state.userToken = ''
+        localStorage.removeItem("userToken")
     }
 }
