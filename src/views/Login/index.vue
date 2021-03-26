@@ -1,12 +1,12 @@
 <template>
-  <div class="about">
+  <div class="login">
     <head-nav title="登录"></head-nav>
     <section>
-      <div>
+      <div class="p-both15 p-b-20r">
         <p>亲，欢迎登录</p>
         <p>
           没有账户？
-          <span>立即注册</span>
+          <span class="color-red" @click="register">立即注册</span>
         </p>
       </div>
       <van-form>
@@ -33,8 +33,8 @@
   </div>
 </template>
 <script lang="ts">
-import { Form } from "vant";
 import { defineComponent, ref, reactive, toRefs } from "vue";
+import { Form, Toast } from "vant";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { headNav } from "../../components/index";
@@ -46,6 +46,7 @@ export default defineComponent({
   setup(props, ctx) {
     const store = useStore();
     const router = useRouter();
+    const { register } = registerFun();
     const userInfo = reactive({
       username: "",
       password: ""
@@ -58,10 +59,21 @@ export default defineComponent({
     }
     return {
       loginIn,
-      ...toRefs(userInfo)
+      ...toRefs(userInfo),
+      register
     };
   }
 });
+
+//注册模块
+const registerFun = function() {
+  function register() {
+    Toast.fail("敬请期待");
+  }
+  return {
+    register
+  };
+};
 </script>
 <style lang="less" scoped>
 @import "./index.less";

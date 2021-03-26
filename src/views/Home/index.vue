@@ -62,7 +62,15 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, onMounted, computed, provide } from "vue";
+declare function require(string): string;
+import {
+  defineComponent,
+  reactive,
+  onMounted,
+  computed,
+  provide,
+  toRefs
+} from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import { useStore } from "vuex";
@@ -97,11 +105,12 @@ export default defineComponent({
     }
 
     function onSeach(): void {
-      if (token) {
+      if (token && typeof token == "object") {
         //进取消息页面
+        rotuer.push("/Login");
+      } else {
         Toast.fail("敬请期待");
       }
-      rotuer.push("/Login");
     }
 
     onMounted(() => {});

@@ -18,8 +18,9 @@
   </nav>
 </template>
 <script lang="ts">
-import { defineComponent, getCurrentInstance } from "vue";
+import { defineComponent, getCurrentInstance, watch, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default defineComponent({
   name: "headNav",
   props: {
@@ -51,13 +52,23 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const router = useRouter();
+    const store = useStore();
+
     function backPage(): void {
-      router.go(-1);
+      let token = store.state.userToken;
+      // console.log(token);
+      if (token) {
+        //进取消息页面
+        router.go(-1);
+      } else {
+        router.push("/Home");
+      }
       ctx.emit("backPage", {});
     }
     function rightEvent(): void {
       ctx.emit("rightEvent", {});
     }
+
     return {
       backPage,
       rightEvent

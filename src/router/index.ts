@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory } from 'vue-router'
 import Demo from '../views/demo.vue'
 const routes: Array<RouteRecordRaw> = [
 
@@ -71,6 +71,16 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('../views/me/index.vue')
   },
+  {
+    path: '/set',
+    name: 'set',
+    meta: {
+      showTab: true,
+      isLogin: true,
+    },
+    component: () => import('../views/set/set.vue')
+  },
+
 
 
   {
@@ -82,7 +92,8 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(),//hash路由
+  // history: createWebHistory(),//H5路由 注意采用H5路由在上生产时不能直接访问项目，需要nginx转发
   routes
 })
 

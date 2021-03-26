@@ -1,5 +1,5 @@
 <template>
-  <head-nav @rightEvent="rightEvent" rightBtnText="退出" title="我的"></head-nav>
+  <head-nav @rightEvent="rightEvent" rightBtnText="设置" title="我的"></head-nav>
 </template>
 <script>
 import { defineComponent } from "vue";
@@ -12,11 +12,10 @@ export default defineComponent({
     "head-nav": headNav
   },
   setup() {
-    const store = useStore();
+    // const store = useStore();
     const router = useRouter();
     function rightEvent() {
-      store.commit("LOGIN_OUT");
-      router.replace("/Login");
+      router.push("/set");
     }
     return {
       rightEvent
