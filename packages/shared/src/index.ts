@@ -1,4 +1,4 @@
-const b=1;
+const c=100;
 export {
-    b
+    c
 }
