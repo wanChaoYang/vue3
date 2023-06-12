@@ -1,8 +1,9 @@
-import { c } from "@vue/shared";
-const a = 1;
-const b = 300;
+//入口文件
+
+import { reactive, shallowReactive, readonly, shallowReadonly } from "./reactive";
 export {
-    a,
-    b,
-    c
+    reactive,
+    shallowReactive,
+    readonly,
+    shallowReadonly
 }
