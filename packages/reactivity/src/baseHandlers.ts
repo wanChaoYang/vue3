@@ -8,7 +8,7 @@ function createGetter(isReadonly = false, shall = false) {
         const res = Reflect.get(target, key, receivers);
         //判断是否是只读的,不是只读搜集依赖，否知返回不代理
         if (!isReadonly) {
-            //收集依赖
+            //收集依赖effect
         }
         //判断是否是浅的
         if (shall) return res
@@ -24,15 +24,39 @@ const get = createGetter();//不是只读，是深的
 const shallowGet = createGetter(false, true);//不是只读，是浅的
 const readonlyGet = createGetter(true);//是只读深的
 const shallowReadonlyGet = createGetter(true, true);//是只读浅的
+
+//set
+const set = createSetter();
+const shallowSet = createSetter(true);
+function createSetter(shallow = false) {
+    return function set(
+        target: object,
+        key: string | symbol,
+        value: unknown,
+        receivers: object
+    ) {
+        const res = Reflect.set(target, key, value, receivers);//映射的方式获取最新值
+        return res;
+    }
+}
 export const reactiveHandlers = {
-    get
+    get,
+    set
 };
 export const shallowReactiveHandlers = {
-    get: shallowGet
+    get: shallowGet,
+    set: shallowSet,
 };
 export const readonlyHandlers = {
-    get: readonlyGet
+    get: readonlyGet,
+    //只读的不能修改
+    set: () => {
+        console.warn('set on key faild');
+    }
 };
 export const shallowReadonlyHandlers = {
-    get: shallowReadonlyGet
+    get: shallowReadonlyGet,
+    set: () => {
+        console.warn('set on key faild');
+    }
 };
