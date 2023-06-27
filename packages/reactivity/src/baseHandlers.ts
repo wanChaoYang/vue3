@@ -1,5 +1,7 @@
 import { isObject } from "@vue/shared";
 import { reactive, readonly } from "./reactive";
+import {TrackOpTypes} from "./operations";
+import { Track } from "./effect";
 
 function createGetter(isReadonly = false, shall = false) {
     //返回一个函数
@@ -8,7 +10,8 @@ function createGetter(isReadonly = false, shall = false) {
         const res = Reflect.get(target, key, receivers);
         //判断是否是只读的,不是只读搜集依赖，否知返回不代理
         if (!isReadonly) {
-            //收集依赖effect
+            //收集依赖effect,等数据变化后更新视图
+            Track(target,TrackOpTypes.GET,key)
         }
         //判断是否是浅的
         if (shall) return res
